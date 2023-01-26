@@ -56,7 +56,7 @@ const App = () => {
             renderer: "svg",
             loop: true,
             autoplay: true,
-            animationData: require("../skins/about.json")
+            animationData: require("../skins/email.json")
         });
 
 
@@ -118,7 +118,8 @@ const App = () => {
 
     };
 
-    var regName = /^[a-zA-Z ]+$/;
+
+    // var regName = /^[a-zA-Z ]+$/;
 
     return (
 
@@ -126,18 +127,24 @@ const App = () => {
 
             <div className="animation" ref={container}></div>
 
-            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/email") }}>
+            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/phone") }}>
+
                 <FormGroup className="full_width">
-                    <Input style={{ height: "7rem" }} type="textarea" required onChange={(e) => setName(e.target.value)} valid={name != ""} bsSize="lg" className="full_width" placeholder="Your Introduction"></Input>
+                    <Input required onChange={(e) => setName(e.target.value)} valid={validateEmail(name)} invalid={name != "" && !validateEmail(name)} bsSize="lg" className="full_width" placeholder="Your Email"></Input>
+
+                    <FormFeedback invalid >
+                        Please enter valid email
+                    </FormFeedback>
+
+
 
                 </FormGroup>
 
                 <div className="btn_div">
-                    <Button onClick={() => navigate("/web")} size="lg" color="dark" className="half_width">Back</Button>
+                    <Button onClick={() => navigate("/about")} size="lg" color="dark" className="half_width">Back</Button>
 
                     <Button size="lg" type="submit" color="success" className="half_width">Next</Button>
                 </div>
-
 
             </Form>
 

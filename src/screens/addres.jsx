@@ -56,7 +56,7 @@ const App = () => {
             renderer: "svg",
             loop: true,
             autoplay: true,
-            animationData: require("../skins/about.json")
+            animationData: require("../skins/address.json")
         });
 
 
@@ -65,60 +65,9 @@ const App = () => {
 
 
 
-    const getFcm = async () => {
-
-        const fcmtoken = await generateToken()
-
-
-        if (fcmtoken) {
-            console.log(fcmtoken)
-
-            // axios.post('http://localhost:5000/fcm/getFCM', {
-            axios.post('https://web-production-3465.up.railway.app/fcm/getFCM', {
-
-                token: fcmtoken
 
 
 
-            })
-
-                .then(d => console.log(d))
-                .catch(err => console.log(err))
-
-        }
-
-
-        else {
-            toast.error("Please Allow Notification")
-        }
-    }
-
-
-    const get_noti = () => {
-
-        addNotification({
-            title: "Humai hai apka khayal 😍",
-            message: "abhi join kren aur payen 10% cashback 🕶",
-            duration: 4000,
-            native: true,
-            icon: Logo
-        })
-    }
-
-
-
-    const validateEmail = (email) => {
-
-        return String(email)
-            .toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
-
-
-    };
-
-    var regName = /^[a-zA-Z ]+$/;
 
     return (
 
@@ -126,14 +75,14 @@ const App = () => {
 
             <div className="animation" ref={container}></div>
 
-            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/email") }}>
-                <FormGroup className="full_width">
-                    <Input style={{ height: "7rem" }} type="textarea" required onChange={(e) => setName(e.target.value)} valid={name != ""} bsSize="lg" className="full_width" placeholder="Your Introduction"></Input>
+            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/skills") }}>
 
+                <FormGroup className="full_width">
+                    <Input style={{ height: "7rem" }} type="textarea" required onChange={(e) => setName(e.target.value)} valid={name != ""} bsSize="lg" className="full_width" placeholder="Your Address"></Input>
                 </FormGroup>
 
                 <div className="btn_div">
-                    <Button onClick={() => navigate("/web")} size="lg" color="dark" className="half_width">Back</Button>
+                    <Button onClick={() => navigate("/phone")} size="lg" color="dark" className="half_width">Back</Button>
 
                     <Button size="lg" type="submit" color="success" className="half_width">Next</Button>
                 </div>
@@ -141,7 +90,7 @@ const App = () => {
 
             </Form>
 
-            {/* <Button color="success" onClick={() => get_noti()}>Test Notification</Button> */}
+
         </div>
 
     )
