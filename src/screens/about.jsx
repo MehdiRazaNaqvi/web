@@ -8,14 +8,17 @@ import "../style/home.css"
 import { Button, Input, Form, FormFeedback, FormGroup, FormText } from "reactstrap"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { generateToken } from "../firebase-config"
+
 import axios from "axios"
 import { toast } from "react-toastify"
 import addNotification from "react-push-notification"
-import Logo from "../assets/speaker.png"
+
 
 import lottie from "lottie-web"
+import { useSelector } from "react-redux"
 import { useRef } from "react"
+import { set_intro } from "../store/counterslice"
+import Navbar from "../components/navbar"
 
 
 
@@ -27,7 +30,13 @@ const App = () => {
     const [submit, setSubmit] = useState('')
     const container = useRef(null)
 
+
+    const state = useSelector(state => state.counter)
+
     useEffect(() => {
+
+
+        setName(state.basic.intro)
 
         // function updateScreen(time) {
 
@@ -65,45 +74,7 @@ const App = () => {
 
 
 
-    const getFcm = async () => {
 
-        const fcmtoken = await generateToken()
-
-
-        if (fcmtoken) {
-            console.log(fcmtoken)
-
-            // axios.post('http://localhost:5000/fcm/getFCM', {
-            axios.post('https://web-production-3465.up.railway.app/fcm/getFCM', {
-
-                token: fcmtoken
-
-
-
-            })
-
-                .then(d => console.log(d))
-                .catch(err => console.log(err))
-
-        }
-
-
-        else {
-            toast.error("Please Allow Notification")
-        }
-    }
-
-
-    const get_noti = () => {
-
-        addNotification({
-            title: "Humai hai apka khayal 😍",
-            message: "abhi join kren aur payen 10% cashback 🕶",
-            duration: 4000,
-            native: true,
-            icon: Logo
-        })
-    }
 
 
 
@@ -124,18 +95,20 @@ const App = () => {
 
         <div className="home_base">
 
+            <Navbar name="Profile" />
+
             <div className="animation" ref={container}></div>
 
-            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/email") }}>
+            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/email"); set_intro(name) }}>
                 <FormGroup className="full_width">
-                    <Input style={{ height: "7rem" }} type="textarea" required onChange={(e) => setName(e.target.value)} valid={name != ""} bsSize="lg" className="full_width" placeholder="Your Introduction"></Input>
-
+                    <Input defaultValue={state.basic.intro} style={{ height: "4rem" }} type="textarea" required onChange={(e) => setName(e.target.value)} valid={name != ""} bsSize="lg" className="full_width" placeholder="Your Introduction"></Input>
                 </FormGroup>
 
                 <div className="btn_div">
                     <Button onClick={() => navigate("/web")} size="lg" color="dark" className="half_width">Back</Button>
 
-                    <Button size="lg" type="submit" color="success" className="half_width">Next</Button>
+                    <Button disabled={name == ""} size="lg" type="submit" color="success" className="half_width">Next</Button>
+
                 </div>
 
 

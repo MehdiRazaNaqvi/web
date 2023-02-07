@@ -8,148 +8,195 @@ import "../style/home.css"
 import { Button, Input, Form, FormFeedback, FormGroup, FormText } from "reactstrap"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { generateToken } from "../firebase-config"
+
 import axios from "axios"
 import { toast } from "react-toastify"
 import addNotification from "react-push-notification"
-import Logo from "../assets/speaker.png"
+
 
 import lottie from "lottie-web"
 import { useRef } from "react"
+import { Camera } from "react-camera-pro";
+import { useDispatch, useSelector } from "react-redux"
+import { api_url } from "../config"
+import { Buffer } from 'buffer';
+import { TbCapture, TbCaptureOff } from "react-icons/tb"
+import Navbar from "../components/navbar"
+
+import { set_image, click_image, set_click } from "../store/counterslice"
+Buffer.from('anything', 'base64');
+
+
 
 
 
 const App = () => {
 
+
+    const dispatch = useDispatch()
+
+
     const navigate = useNavigate()
 
-    const [name, setName] = useState('')
-    const [submit, setSubmit] = useState('')
-    const container = useRef(null)
 
-    useEffect(() => {
+    const camera = useRef(null);
 
-        // function updateScreen(time) {
-
-        //     alanBtn({
-
-        //         key: "e8fa9817b3cb393fad3b004399eccbd82e956eca572e1d8b807a3e2338fdd0dc/stage",
-
-        //         onCommand: (commandData) => {
-
-        //             if (commandData.command === "name") {
-
-        //                 console.log(commandData.data)
-        //                 setName(commandData.data)
-        //                 navigate("/about")
-
-        //             }
+    const [image, setImage] = useState(null);
 
 
-        //         }
-        //     })
-        // }
 
 
-        lottie.loadAnimation({
-            container: container.current,
-            renderer: "svg",
-            loop: true,
-            autoplay: true,
-            animationData: require("../skins/pic.json")
+    const state = useSelector(state => state.counter)
+
+
+
+
+    console.log(image)
+
+    const uploadMediaByDisabled = () => {
+
+
+        console.log("uploading")
+        setImage(camera.current.takePhoto())
+
+
+
+
+        const decodedImage = Buffer.from(
+            image.replace(/^data:image\/\w+;base64,/, ''),
+            'base64'
+        );
+
+
+        const blob = new Blob([decodedImage], {
+            type: 'image/jpeg'
         });
 
 
-        // requestAnimationFrame(updateScreen);
-    }, [])
+        const formData = new FormData();
+        formData.append('file', blob, 'image.jpg');
 
 
 
-    const getFcm = async () => {
+        console.log("UPLOADING")
 
-        const fcmtoken = await generateToken()
+        // fetch(`${api_url}/media/uploadFile`, {
 
+        //     method: 'POST',
+        //     // headers: headers,
+        //     body: formData
 
-        if (fcmtoken) {
-            console.log(fcmtoken)
-
-            // axios.post('http://localhost:5000/fcm/getFCM', {
-            axios.post('https://web-production-3465.up.railway.app/fcm/getFCM', {
-
-                token: fcmtoken
+        // })
 
 
-
-            })
-
-                .then(d => console.log(d))
-                .catch(err => console.log(err))
-
-        }
+        //     .then((d) => d.json())
+        //     .then((res) => { res.data && dispatch(set_image(res.data)); navigate("/basicInfo") })
 
 
-        else {
-            toast.error("Please Allow Notification")
-        }
-    }
+        //     .catch(err => console.log(err))
 
 
-    const get_noti = () => {
 
-        addNotification({
-            title: "Humai hai apka khayal 😍",
-            message: "abhi join kren aur payen 10% cashback 🕶",
-            duration: 4000,
-            native: true,
-            icon: Logo
-        })
     }
 
 
 
-    const validateEmail = (email) => {
-
-        return String(email)
-            .toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
 
 
-    };
+    const uploadMedia = () => {
 
 
-    // var regName = /^[a-zA-Z ]+$/;
+
+
+
+        const decodedImage = Buffer.from(
+            image.replace(/^data:image\/\w+;base64,/, ''),
+            'base64'
+        );
+
+
+        const blob = new Blob([decodedImage], {
+            type: 'image/jpeg'
+        });
+
+
+        const formData = new FormData();
+        formData.append('file', blob, 'image.jpg');
+
+
+
+        console.log("UPLOADING")
+
+        // fetch(`${api_url}/media/uploadFile`, {
+
+        //     method: 'POST',
+        //     // headers: headers,
+        //     body: formData
+
+        // })
+
+
+        //     .then((d) => d.json())
+        //     .then((res) => { res.data && dispatch(set_image(res.data)); navigate("/basicInfo") })
+
+
+        //     .catch(err => console.log(err))
+
+
+
+    }
+
+
+
+
+
+
 
     return (
 
-        <div className="home_base">
+        <div className="home_base" >
 
-            <div className="animation" ref={container}></div>
-
-            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/web") }}>
-
-                <FormGroup className="full_width">
-                    <Input type="file" required onChange={(e) => setName(e.target.value)} bsSize="lg" className="full_width" placeholder="Your Phone"></Input>
-
-                    <FormFeedback invalid >
-                        Please enter valid email
-                    </FormFeedback>
+            <Navbar name="Profile" />
 
 
+            {state.basic.image_clicked ?
 
+                <img className="image_taken" src={image} alt='Taken photo' />
+                :
+                <Camera aspectRatio={30 / 41} ref={camera} />
+
+            }
+
+
+            <Form className="width form" onSubmit={(e) => { e.preventDefault(); uploadMedia() }}>
+
+                <FormGroup style={{ "marginTop": "2rem" }} className="full_width">
+                    {!state.basic.image_clicked ?
+                        <Button onClick={() => { setImage(camera.current.takePhoto()); dispatch(click_image()) }} size="lg" type="button" color="success" className="full_width"> <TbCapture style={{ marginRight: "0.5rem" }} size={25} /> Snap</Button>
+                        :
+                        <Button onClick={() => { setImage(null); dispatch(click_image()) }} size="lg" type="button" color="success" className="full_width"> <TbCaptureOff size={25} style={{ marginRight: "0.5rem" }} />Re Take</Button>
+                    }
                 </FormGroup>
 
+                {state.basic.image_clicked ?
+                    <div className="btn_div">
+                        <Button onClick={() => navigate("/skills")} size="lg" color="dark" className="half_width"> Back</Button>
 
-                <div className="btn_div">
-                    <Button onClick={() => navigate("/skills")} size="lg" color="dark" className="half_width">Back</Button>
+                        <Button size="lg" type="submit" color="success" className="half_width">Next</Button>
+                    </div>
 
-                    <Button size="lg" type="submit" color="success" className="half_width">Next</Button>
-                </div>
+                    :
 
+                    <div className="btn_div">
+                        <Button onClick={() => navigate("/skills")} size="lg" color="dark" className="half_width"> Back</Button>
+
+                        <Button size="lg" type="submit" color="success" className="half_width">Skip</Button>
+                    </div>
+
+                }
             </Form>
 
-            {/* <Button color="success" onClick={() => get_noti()}>Test Notification</Button> */}
+
         </div>
 
     )
