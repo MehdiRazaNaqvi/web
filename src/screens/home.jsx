@@ -17,7 +17,7 @@ import addNotification from "react-push-notification"
 import lottie from "lottie-web"
 import { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { set_name, set_email, set_intro, set_address, set_phone, set_skills, click_image, add_qualification, add_experience } from "../store/counterslice"
+import {set_name, set_email, set_intro, set_address, set_phone, set_skills, click_image, add_qualification, add_experience, emptyStore } from "../store/counterslice"
 import { api_url } from "../config"
 // const { Configuration, OpenAIApi } = require("openai");
 import OneSignal from 'react-onesignal';
@@ -62,7 +62,7 @@ const App = () => {
 
 
  
-        
+        dispatch(emptyStore())
 
 
         setName(state.basic.name)
@@ -225,6 +225,7 @@ const App = () => {
 
         axios.post(`${api_url}/openAi/getans`, { text: text, key })
             .then(res => cb(res.data.msg))
+            .catch(err => {cb(text) ; toast.error("Network Eror")})
 
     }
 

@@ -148,8 +148,35 @@ export const counterSlice = createSlice({
 
 
 
+    emptyStore: (state, action) => {
+      state = {
+        currentUser: { username: "" },
+
+        basic: {
+
+          name: "",
+          intro: "",
+          email: "",
+          phone: "",
+          address: "",
+          photo: "",
+          skills: '',
+          image: '',
+          image_clicked: false,
 
 
+        },
+
+
+        qualification: [],
+        experience: [],
+
+
+        click_func: {}
+
+      }
+
+    }
 
 
 
@@ -161,6 +188,6 @@ export const counterSlice = createSlice({
 
 
 
-export const { set_name, set_email, set_intro, set_address, set_phone, set_skills, set_image, click_image, set_click, set_qualification, add_qualification, set_experience, add_experience } = counterSlice.actions
+export const { emptyStore, set_name, set_email, set_intro, set_address, set_phone, set_skills, set_image, click_image, set_click, set_qualification, add_qualification, set_experience, add_experience } = counterSlice.actions
 
 export default counterSlice.reducer
