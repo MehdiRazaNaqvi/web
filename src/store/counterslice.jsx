@@ -149,32 +149,25 @@ export const counterSlice = createSlice({
 
 
     emptyStore: (state, action) => {
-      state = {
-        currentUser: { username: "" },
 
-        basic: {
+      state.basic = {
 
-          name: "",
-          intro: "",
-          email: "",
-          phone: "",
-          address: "",
-          photo: "",
-          skills: '',
-          image: '',
-          image_clicked: false,
+        name: "",
+        intro: "",
+        email: "",
+        phone: "",
+        address: "",
+        photo: "",
+        skills: '',
+        image: '',
+        image_clicked: false,
 
-
-        },
-
-
-        qualification: [],
-        experience: [],
-
-
-        click_func: {}
 
       }
+
+      state.experience = []
+      state.qualification = []
+  
 
     }
 

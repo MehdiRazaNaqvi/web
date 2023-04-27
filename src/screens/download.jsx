@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF'
   },
   section: {
-    margin: 40,
+    margin: 10,
     padding: 10
   },
   header: {
@@ -19,6 +19,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     marginBottom: 20
+  },
+  headerName: {
+    fontSize: 30,
+    textAlign: 'center',
+    fontWeight: '800',
+    marginBottom: 20,
+    marginTop: 20,
   },
   subheader: {
     fontSize: 14,
@@ -44,6 +51,8 @@ const Resume = (props) => (
 
   <Document>
     <Page size="A4" style={styles.page}>
+
+
       <View style={styles.section}>
 
         {props.state.basic.image != "" ?
@@ -55,27 +64,54 @@ const Resume = (props) => (
 
         }
 
+        <Text style={styles.headerName} >{props.state.basic.name}</Text>
         <Text style={styles.header}>Personal Information</Text>
-        <Text style={styles.text}>Name: {props.state.basic.name}</Text>
-        <Text style={styles.text}>City: {props.state.basic.address}</Text>
-        <Text style={styles.text}>Email: {props.state.basic.email}</Text>
-        <Text style={styles.text}>Phone: {props.state.basic.phone}</Text>
+        {/* <Text style={styles.text}>Name: {props.state.basic.name}</Text> */}
+        <Text style={styles.subheader}>City: {props.state.basic.address}</Text>
+        <Text style={styles.subheader}>Email: {props.state.basic.email}</Text>
+        <Text style={styles.subheader}>Phone: {props.state.basic.phone}</Text>
       </View>
+
+
+      <View style={styles.section}>
+        <Text style={styles.header}>About</Text>
+
+
+          <Text style={styles.subheader}>{props.state.basic.intro}</Text>
+
+
+
+      </View>
+
+
+
+      <View style={styles.section}>
+        <Text style={styles.header}>Skills</Text>
+
+
+          <Text style={styles.subheader}>{props.state.basic.skills}</Text>
+
+
+
+      </View>
+
       <View style={styles.section}>
         <Text style={styles.header}>Education</Text>
         {props.state.qualification.map((v, i) =>
 
-          <Text key={i} style={styles.subheader}>{v}</Text>
+          <Text key={i} style={styles.subheader}>• {""} {v}</Text>
 
         )}
         {/* <Text style={styles.text}>University of XYZ</Text> */}
         {/* <Text style={styles.text}>Graduated: May 2020</Text> */}
       </View>
+
+
       <View style={styles.section}>
         <Text style={styles.header}>Work Experience</Text>
 
         {props.state.experience.map((v, i) =>
-          <Text style={styles.subheader}>{v}</Text>
+          <Text key={i} style={styles.subheader}>• {""} {v}</Text>
 
         )}
 
@@ -84,6 +120,8 @@ const Resume = (props) => (
         <Text style={styles.text}>- Developed and maintained software applications</Text>
         <Text style={styles.text}>- Fixed bugs and improved application performance</Text> */}
       </View>
+
+
     </Page>
   </Document>
 );

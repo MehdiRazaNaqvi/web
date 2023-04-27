@@ -43,7 +43,7 @@ const App = () => {
             renderer: "svg",
             loop: true,
             autoplay: true,
-            animationData: require("../skins/about.json")
+            animationData: require("../skins/experience.json")
         });
 
 
@@ -56,7 +56,7 @@ const App = () => {
 
 
 
-    console.log(state)
+    
 
 
 

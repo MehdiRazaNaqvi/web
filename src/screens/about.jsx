@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom"
 
 
 import lottie from "lottie-web"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useRef } from "react"
 import { set_intro } from "../store/counterslice"
 import Navbar from "../components/navbar"
@@ -25,6 +25,7 @@ const App = () => {
     const [submit, setSubmit] = useState('')
     const container = useRef(null)
 
+    const dispatch = useDispatch()
 
     const state = useSelector(state => state.counter)
 
@@ -61,7 +62,7 @@ const App = () => {
 
             <div className="animation" ref={container}></div>
 
-            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/email"); set_intro(name) }}>
+            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/email"); dispatch(set_intro(name)) }}>
                 <FormGroup className="full_width">
                     <Input defaultValue={state.basic.intro} style={{ height: "4rem" }} type="textarea" required onChange={(e) => setName(e.target.value)} valid={name != ""} bsSize="lg" className="full_width" placeholder="Your Introduction"></Input>
                 </FormGroup>

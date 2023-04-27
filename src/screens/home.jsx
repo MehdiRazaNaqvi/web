@@ -63,7 +63,7 @@ const App = () => {
 
 
  
-        dispatch(emptyStore())
+        // dispatch(emptyStore())
 
 
         setName(state.basic.name)
