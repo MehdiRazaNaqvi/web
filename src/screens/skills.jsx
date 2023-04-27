@@ -1,7 +1,5 @@
 
 
-import alanBtn from "@alan-ai/alan-sdk-web"
-import { Rating } from 'react-simple-star-rating'
 import { useEffect } from "react"
 import "../style/home.css"
 
@@ -16,8 +14,8 @@ import { useDispatch, useSelector } from "react-redux"
 
 import axios from "axios"
 import { api_url } from "../config"
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+
+
 
 import Navbar from "../components/navbar"
 import { set_skills } from "../store/counterslice"
@@ -58,7 +56,7 @@ const App = () => {
 
     const chatGpt = async (text, cb) => {
 
-        axios.post(`${api_url}/openAi/getans`, { text: text })
+        axios.post(`${api_url}/openAi/getans`, { text: text, key: "skills" })
             .then(res => cb(res.data.msg))
 
 
@@ -76,20 +74,10 @@ const App = () => {
             <div className="animation" ref={container}></div>
 
 
-            {/* <span className="skills_grid">
-
-                {skills.map((v, i) =>
-                    <span key={i} className="progress_circle">
-                        <CircularProgressbar size="sm" value={v.score * 20} text={v.name} />
-                    </span>
-
-                )}
-
-            </span> */}
 
 
 
-            <Form className="width form" onSubmit={(e) => { e.preventDefault(); setLoading(true); chatGpt(skillName, (res) => { setLoading(false); dispatch(set_skills(res)); navigate("/basicInfo"); }) }}>
+            <Form className="width form" onSubmit={(e) => { e.preventDefault(); setLoading(true); chatGpt(skillName, (res) => { setLoading(false); dispatch(set_skills(res)); navigate("/qualification"); }) }}>
 
                 {/* <FormGroup className="full_width gap">
 
@@ -131,7 +119,7 @@ const App = () => {
 
             </Form>
 
-            
+
         </div>
 
     )

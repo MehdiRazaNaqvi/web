@@ -7,22 +7,24 @@ import Phone from "./screens/phone"
 import Photo from "./screens/photo"
 import Address from "./screens/addres"
 import Skills from "./screens/skills"
+import Experience from "./screens/experience"
+import Qualification from "./screens/qualification"
 import BasicInfo from "./successScreens/basicInfo"
 import Download from "./screens/download"
 
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useState } from "react"
+
 
 
 
 const App = () => {
 
 
-    
 
-    
+
+
     return (
         <div>
             <ToastContainer />
@@ -37,8 +39,10 @@ const App = () => {
                     <Route path="/photo" element={<Photo />} />
                     <Route path="/address" element={<Address />} />
                     <Route path="/skills" element={<Skills />} />
+                    <Route path="/qualification" element={<Qualification />} />
+                    <Route path="/experience" element={<Experience />} />
                     <Route path="/download" element={<Download />} />
-                    <Route path="/basicInfo" element={<BasicInfo name="mehdi" />} />
+                    <Route path="/basicInfo" element={<BasicInfo />} />
 
 
 

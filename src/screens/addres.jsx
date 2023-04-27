@@ -1,6 +1,5 @@
 
 
-import alanBtn from "@alan-ai/alan-sdk-web"
 
 import { useEffect } from "react"
 import "../style/home.css"

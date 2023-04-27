@@ -54,17 +54,26 @@ const Resume = (props) => (
       </View>
       <View style={styles.section}>
         <Text style={styles.header}>Education</Text>
-        <Text style={styles.subheader}>Bachelor of Science in Computer Science</Text>
-        <Text style={styles.text}>University of XYZ</Text>
-        <Text style={styles.text}>Graduated: May 2020</Text>
+        {props.state.qualification.map((v, i) =>
+
+          <Text key={i} style={styles.subheader}>{v}</Text>
+
+        )}
+        {/* <Text style={styles.text}>University of XYZ</Text> */}
+        {/* <Text style={styles.text}>Graduated: May 2020</Text> */}
       </View>
       <View style={styles.section}>
         <Text style={styles.header}>Work Experience</Text>
-        <Text style={styles.subheader}>Software Engineer</Text>
-        <Text style={styles.text}>ABC Company</Text>
+
+        {props.state.experience.map((v, i) =>
+          <Text style={styles.subheader}>{v}</Text>
+
+        )}
+        
+        {/* <Text style={styles.text}>ABC Company</Text>
         <Text style={styles.text}>June 2020 - Present</Text>
         <Text style={styles.text}>- Developed and maintained software applications</Text>
-        <Text style={styles.text}>- Fixed bugs and improved application performance</Text>
+        <Text style={styles.text}>- Fixed bugs and improved application performance</Text> */}
       </View>
     </Page>
   </Document>
@@ -80,6 +89,7 @@ const App = () => {
       <PDFDownloadLink style={{ width: "90%", color: "white", textDecoration: "none" }} document={<Resume state={state} />} fileName="resume.pdf">
         {({ blob, url, loading, error }) => (loading ? <Button style={{ width: "100%" }} size="lg" type="submit" color="success" disabled className="full_width">Loading...</Button> : "Download"
         )}
+        
       </PDFDownloadLink>
     </div>)
 }

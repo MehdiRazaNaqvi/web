@@ -1,7 +1,5 @@
 
 
-import alanBtn from "@alan-ai/alan-sdk-web"
-
 import { useEffect } from "react"
 import "../style/home.css"
 
@@ -10,7 +8,6 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 
-import addNotification from "react-push-notification"
 
 
 import lottie from "lottie-web"
@@ -39,27 +36,7 @@ const App = () => {
 
         setName(state.basic.email)
 
-
-        // function updateScreen(time) {
-
-        //     alanBtn({
-
-        //         key: "e8fa9817b3cb393fad3b004399eccbd82e956eca572e1d8b807a3e2338fdd0dc/stage",
-
-        //         onCommand: (commandData) => {
-
-        //             if (commandData.command === "name") {
-
-        //                 console.log(commandData.data)
-        //                 setName(commandData.data)
-        //                 navigate("/about")
-
-        //             }
-
-
-        //         }
-        //     })
-        // }
+        
 
 
         lottie.loadAnimation({
@@ -71,7 +48,7 @@ const App = () => {
         });
 
 
-        // requestAnimationFrame(updateScreen);
+
     }, [])
 
 
@@ -91,8 +68,8 @@ const App = () => {
     };
 
 
-    // var regName = /^[a-zA-Z ]+$/;
 
+    
     return (
 
         <div className="home_base">
@@ -102,7 +79,7 @@ const App = () => {
 
             <div className="animation" ref={container}></div>
 
-            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/phone"); set_email(name) }}>
+            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/phone"); dispatch(set_email(name)) }}>
 
                 <FormGroup className="full_width">
                     <Input defaultValue={state.basic.email} required onChange={(e) => setName(e.target.value)} valid={validateEmail(name)} invalid={name != "" && !validateEmail(name)} bsSize="lg" className="full_width" placeholder="Your Email"></Input>
@@ -123,7 +100,6 @@ const App = () => {
 
             </Form>
 
-            {/* <Button color="success" onClick={() => get_noti()}>Test Notification</Button> */}
         </div>
 
     )

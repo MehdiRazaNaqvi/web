@@ -22,6 +22,9 @@ const initialState = {
   },
 
 
+  qualification: [],
+  experience: [],
+
 
   click_func: {}
 
@@ -108,6 +111,39 @@ export const counterSlice = createSlice({
     },
 
 
+    set_qualification: (state, action) => {
+      state.qualification[0] = action.payload
+
+    },
+
+
+
+
+    add_qualification: (state, action) => {
+
+
+      state.qualification.push(action.payload)
+
+    },
+
+
+    add_experience: (state, action) => {
+
+      state.experience.push(action.payload)
+
+    },
+
+
+
+
+    set_experience: (state, action) => {
+      state.experience[0] = action.payload
+
+    },
+
+
+
+
 
 
 
@@ -125,6 +161,6 @@ export const counterSlice = createSlice({
 
 
 
-export const { set_name, set_email, set_intro, set_address, set_phone, set_skills, set_image, click_image, set_click } = counterSlice.actions
+export const { set_name, set_email, set_intro, set_address, set_phone, set_skills, set_image, click_image, set_click, set_qualification, add_qualification, set_experience, add_experience } = counterSlice.actions
 
 export default counterSlice.reducer

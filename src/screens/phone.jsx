@@ -1,17 +1,10 @@
 
-
-import alanBtn from "@alan-ai/alan-sdk-web"
-
 import { useEffect } from "react"
 import "../style/home.css"
 
 import { Button, Input, Form, FormFeedback, FormGroup, FormText } from "reactstrap"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-
-import axios from "axios"
-import { toast } from "react-toastify"
-import addNotification from "react-push-notification"
 
 
 import lottie from "lottie-web"

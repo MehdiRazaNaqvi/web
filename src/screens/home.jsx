@@ -17,14 +17,14 @@ import addNotification from "react-push-notification"
 import lottie from "lottie-web"
 import { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { set_name, set_email, set_intro, set_address, set_phone, set_skills, click_image } from "../store/counterslice"
+import { set_name, set_email, set_intro, set_address, set_phone, set_skills, click_image, add_qualification, add_experience } from "../store/counterslice"
 import { api_url } from "../config"
 // const { Configuration, OpenAIApi } = require("openai");
 import OneSignal from 'react-onesignal';
 import Navbar from "../components/navbar"
 
 
-import Download from "../screens/download"
+
 const App = () => {
 
 
@@ -47,12 +47,22 @@ const App = () => {
     const state = useSelector(state => state.counter)
 
 
+
+
+
+    const saveRecord = () => {
+
+        axios.post(`${api_url}/`, state)
+            .then(res => console.log(res))
+
+    }
+
+
     useEffect(() => {
 
 
-        OneSignal.init({ appId: '8648d2ff-e088-420e-854b-6c59e4321f28' })
-            .then(() => { console.log("initialized"); send_noti() })
-
+ 
+        
 
 
         setName(state.basic.name)
@@ -111,13 +121,47 @@ const App = () => {
                         navigate("/skills")
 
                     }
+
                     else if (commandData.command === "skills") {
 
-                        navigate("/basicInfo")
+                        navigate("/qualification")
 
-                        chatGpt(commandData.data, (res) => { dispatch(set_skills(res)) })
+                        chatGpt(commandData.data, "skills", (res) => { dispatch(set_skills(res)) })
 
                     }
+
+
+                    else if (commandData.command === "newQualification") {
+
+
+                        chatGpt(commandData.data, "qualification", (res) => { dispatch(add_qualification(res)) })
+
+                    }
+
+
+                    else if (commandData.command === "qualification") {
+                        navigate("/experience")
+
+                    }
+
+
+                    else if (commandData.command === "newExperience") {
+
+
+                        chatGpt(commandData.data, "experience", (res) => { dispatch(add_experience(res)) })
+
+                    }
+
+
+                    else if (commandData.command === "experience") {
+                        // alert("completed")
+                        navigate("/basicInfo")
+                        saveRecord()
+
+
+                    }
+
+
 
                     // else if (commandData.command === "photo") {
 
@@ -168,69 +212,18 @@ const App = () => {
     }, [])
 
 
-    // useEffect(() => {
-
-    //     const msg = new SpeechSynthesisUtterance()
-
-    //     msg.text = "Welcome to our application you can start the communication by pressing the button at bottom right of your screen"
-
-    //     window.speechSynthesis.speak(msg)
-
-    // }, [])
+    
 
 
 
 
 
-    console.log(state.basic)
-
-    // const getFcm = async () => {
-
-    //     const fcmtoken = await generateToken()
-
-
-    //     if (fcmtoken) {
-    //         console.log(fcmtoken)
-
-    //         // axios.post('http://localhost:5000/fcm/getFCM', {
-    //         axios.post('https://web-production-3465.up.railway.app/fcm/getFCM', {
-
-    //             token: fcmtoken
 
 
 
-    //         })
+    const chatGpt = async (text, key, cb) => {
 
-    //             .then(d => console.log(d))
-    //             .catch(err => console.log(err))
-
-    //     }
-
-
-    //     else {
-    //         toast.error("Please Allow Notification")
-    //     }
-    // }
-
-
-
-
-    const validateEmail = (email) => {
-
-        return String(email)
-            .toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
-
-
-    };
-
-
-
-    const chatGpt = async (text, cb) => {
-
-        axios.post(`${api_url}/openAi/getans`, { text: text })
+        axios.post(`${api_url}/openAi/getans`, { text: text, key })
             .then(res => cb(res.data.msg))
 
     }

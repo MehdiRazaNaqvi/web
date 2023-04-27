@@ -1,8 +1,7 @@
 
 // import { ChatGPTAPIBrowser } from 'chatgpt'
-import alanBtn from "@alan-ai/alan-sdk-web"
 
-import { useEffect } from "react"
+
 import "../style/home.css"
 
 import { Button, Input, Form, FormFeedback, FormGroup, FormText, InputGroup, InputGroupText, } from "reactstrap"
@@ -10,11 +9,9 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 
-import lottie from "lottie-web"
 
 import { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { set_name, set_email, set_intro, set_address, set_phone } from "../store/counterslice"
 import { api_url } from "../config"
 
 
@@ -78,18 +75,10 @@ const App = (props) => {
     // rows.pop(); // remove the last empty string
 
     let words = rows.map(row => row.replace("---|", "").replace("|", "", " - ").trim());
-    console.log(words)
-
-    console.log(state.basic.skills)
 
 
 
 
-
-    var regName = /^[a-zA-Z ]+$/;
-
-
-    console.log(props)
 
 
     const download = () => {
@@ -122,6 +111,10 @@ const App = (props) => {
 
 
     }
+
+
+    
+
     return (
 
         <div className="home_base" id="d" >
@@ -145,13 +138,13 @@ const App = (props) => {
                 </span>
 
 
-                <Form style={{ gap: "1rem" }} className="width form" onSubmit={(e) => { e.preventDefault() }}>
+                <Form style={{ gap: "1.5rem" }} className="width form" onSubmit={(e) => { e.preventDefault() }}>
 
                     <span className="name_preview">{state.basic.name}</span>
 
 
                     <span>{state.basic.skills}</span>
-
+                    {/* 
                     <span className="preview_page_skills_div">
 
 
@@ -181,7 +174,7 @@ const App = (props) => {
                         })} className="round_progress_preview" strokeWidth={5} value={70} text={`Profile`} />
 
 
-                    </span>
+                    </span> */}
 
 
                     <InputGroup style={{ gap: "1rem" }}>

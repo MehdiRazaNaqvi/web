@@ -1,20 +1,12 @@
 
 
-import alanBtn from "@alan-ai/alan-sdk-web"
-
-import { useEffect } from "react"
 import "../style/home.css"
 
 import { Button, Input, Form, FormFeedback, FormGroup, FormText } from "reactstrap"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-import axios from "axios"
-import { toast } from "react-toastify"
-import addNotification from "react-push-notification"
 
-
-import lottie from "lottie-web"
 import { useRef } from "react"
 import { Camera } from "react-camera-pro";
 import { useDispatch, useSelector } from "react-redux"
@@ -51,7 +43,7 @@ const App = () => {
 
 
 
-    console.log(image)
+
 
     const uploadMediaByDisabled = () => {
 
@@ -125,22 +117,23 @@ const App = () => {
 
 
 
-        console.log("UPLOADING")
+        
 
-        // fetch(`${api_url}/media/uploadFile`, {
+        fetch(`${api_url}/media/uploadFile`, {
 
-        //     method: 'POST',
-        //     // headers: headers,
-        //     body: formData
+            method: 'POST',
+            // headers: headers,
+            body: formData
 
-        // })
-
-
-        //     .then((d) => d.json())
-        //     .then((res) => { res.data && dispatch(set_image(res.data)); navigate("/basicInfo") })
+        })
 
 
-        //     .catch(err => console.log(err))
+            .then((d) => d.json())
+            .then((res) => { res.data && dispatch(set_image(res.data)); navigate("/basicInfo") })
+
+            // .then(res => console.log(res))
+
+            .catch(err => console.log(err))
 
 
 

@@ -24,11 +24,12 @@ function Example(props) {
                 <Collapse isOpen={!collapsed} navbar>
                     <Nav navbar>
                         <NavItem>
-                            <NavLink >Experience</NavLink>
+                            <NavLink> {props.name2 ? props.name2 : "Experience"}</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink >
-                                Qualification
+
+                                {props.name3 ? props.name3 : "Qualification"}
                             </NavLink>
                         </NavItem>
                     </Nav>

@@ -12,9 +12,9 @@ import { useNavigate } from "react-router-dom"
 import lottie from "lottie-web"
 import { useSelector } from "react-redux"
 import { useRef } from "react"
-import { set_intro } from "../store/counterslice"
+import { set_qualification } from "../store/counterslice"
 import Navbar from "../components/navbar"
-
+import { useDispatch } from "react-redux"
 
 
 const App = () => {
@@ -22,18 +22,18 @@ const App = () => {
     const navigate = useNavigate()
 
     const [name, setName] = useState('')
-    const [submit, setSubmit] = useState('')
+
     const container = useRef(null)
 
 
     const state = useSelector(state => state.counter)
+    const dispatch = useDispatch()
 
     useEffect(() => {
 
 
         setName(state.basic.intro)
 
-    
 
 
         lottie.loadAnimation({
@@ -45,6 +45,7 @@ const App = () => {
         });
 
 
+
     }, [])
 
 
@@ -53,15 +54,20 @@ const App = () => {
 
 
 
+
+    
+
+
+
     return (
 
         <div className="home_base">
 
-            <Navbar name="Profile" />
+            <Navbar name="Qualification" name2="Experience" name3="Profile"/>
 
             <div className="animation" ref={container}></div>
 
-            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/email"); set_intro(name) }}>
+            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/experience"); dispatch(set_qualification(name)) }}>
                 <FormGroup className="full_width">
                     <Input defaultValue={state.basic.intro} style={{ height: "4rem" }} type="textarea" required onChange={(e) => setName(e.target.value)} valid={name != ""} bsSize="lg" className="full_width" placeholder="Your Introduction"></Input>
                 </FormGroup>
@@ -75,6 +81,7 @@ const App = () => {
 
 
             </Form>
+
 
         </div>
 
