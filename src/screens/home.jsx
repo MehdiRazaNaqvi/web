@@ -47,13 +47,14 @@ const App = () => {
     const state = useSelector(state => state.counter)
 
 
-
+    
 
 
     const saveRecord = () => {
 
         axios.post(`${api_url}/`, state)
-            .then(res => console.log(res))
+            .then(res => toast.success("Record Saved"))
+            .catch(err => toast.error("Network Error"))
 
     }
 

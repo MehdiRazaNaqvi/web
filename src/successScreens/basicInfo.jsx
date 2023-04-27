@@ -22,20 +22,12 @@ import { BiPhone } from "react-icons/bi"
 import { BsPerson } from "react-icons/bs"
 
 
-import {
-    CircularProgressbar,
-    CircularProgressbarWithChildren,
-    buildStyles,
 
-} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 
 
-import { Document, Page } from 'react-pdf';
-import { jsPDF } from "jspdf";
 
-import html2canvas from 'html2canvas';
 import Download from "../screens/download"
 
 
@@ -46,10 +38,7 @@ const { Configuration, OpenAIApi } = require("openai");
 
 
 
-
 const App = (props) => {
-
-
 
 
 
@@ -71,49 +60,19 @@ const App = (props) => {
     const state = useSelector(state => state.counter)
 
 
-    let rows = state.basic.skills.split("\n|");
+
+
+    // let rows = state.basic.skills?.split("\n|");
     // rows.pop(); // remove the last empty string
 
-    let words = rows.map(row => row.replace("---|", "").replace("|", "", " - ").trim());
+    // let words = rows.map(row => row.replace("---|", "").replace("|", "", " - ").trim());
 
 
 
 
 
 
-    const download = () => {
 
-
-        const input = document.getElementById('d')
-
-
-        html2canvas(input)
-            .then(r => {
-                const imgData = r.toDataURL('image/png')
-
-                const pdf = new jsPDF()
-                var width = pdf.internal.pageSize.getWidth()
-                var height = pdf.internal.pageSize.getHeight()
-
-                // var marginX = (pdf.internal.pageSize.getWidth()) / 10
-
-                pdf.addImage(imgData, 'JPEG', 0, 0, width, height)
-
-                pdf.save('resumee.pdf');
-
-
-
-
-            })
-
-
-            .catch(err => console.log(err))
-
-
-    }
-
-
-    
 
     return (
 

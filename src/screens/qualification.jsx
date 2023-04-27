@@ -73,7 +73,7 @@ const App = () => {
                 </FormGroup>
 
                 <div className="btn_div">
-                    <Button onClick={() => navigate("/web")} size="lg" color="dark" className="half_width">Back</Button>
+                    <Button onClick={() => navigate("/skills")} size="lg" color="dark" className="half_width">Back</Button>
 
                     <Button disabled={name == ""} size="lg" type="submit" color="success" className="half_width">Next</Button>
 
