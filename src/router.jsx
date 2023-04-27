@@ -16,14 +16,15 @@ import Download from "./screens/download"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
+import { useSelector } from "react-redux"
 
 
 const App = () => {
 
 
 
-
+    const state = useSelector(state => state.counter)
+    console.log(state)
 
     return (
         <div>

@@ -77,7 +77,14 @@ const App = () => {
 
 
 
-            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/qualification"); chatGpt(skillName, (res) => { setLoading(false); dispatch(set_skills(res)) }) }}>
+            <Form className="width form" onSubmit={(e) => {
+
+                e.preventDefault();
+                navigate("/qualification");
+                // chatGpt(skillName, (res) => { setLoading(false); dispatch(set_skills(res)) })
+                dispatch(set_skills(skillName))
+
+            }}>
 
                 {/* <FormGroup className="full_width gap">
 
