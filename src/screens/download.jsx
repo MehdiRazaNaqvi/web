@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
 import { Button } from "reactstrap";
@@ -8,30 +10,46 @@ import { api_url } from "../config";
 // Create styles
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
+    padding: 30
   },
   section: {
-    margin: 10,
-    padding: 10
+    marginBottom: 20
   },
   header: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: 'left',
     fontWeight: 'bold',
-    marginBottom: 20
+    marginBottom: 10,
+    color: '#333333'
   },
   headerName: {
-    fontSize: 30,
+    fontSize: 35,
+    fontWeight: 750,
     textAlign: 'center',
     fontWeight: '800',
     marginBottom: 20,
     marginTop: 20,
+    color: '#555555'
   },
   subheader: {
     fontSize: 14,
-    textAlign: 'center',
+    textAlign: 'left',
     fontWeight: 'bold',
-    marginBottom: 10
+    marginBottom: 5,
+    color: '#333333'
+  },
+  grayText: {
+    fontSize: 12,
+    textAlign: 'left',
+    color: '#888888',
+    marginBottom: 5
+  },
+  rightText: {
+    fontSize: 12,
+    textAlign: 'right',
+    color: '#888888',
+    marginBottom: 5
   },
   profileImage: {
     alignSelf: 'center',
@@ -40,91 +58,56 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100
   },
-  text: {
-    fontSize: 12,
-    marginBottom: 10
-  }
 });
+
 
 // Create Document Component
 const Resume = (props) => (
-
+  
   <Document>
     <Page size="A4" style={styles.page}>
-
-
       <View style={styles.section}>
-
-        {props.state.basic.image != "" ?
-
-          <Image source={`${api_url}/images/${props.state.basic.image}`} style={styles.profileImage} />
-          :
-          <Image source="https://avatars2.githubusercontent.com/u/39096315?s=460&v=4" style={styles.profileImage} />
-
-
-        }
-
-        <Text style={styles.headerName} >{props.state.basic.name}</Text>
+        <Text style={styles.headerName}>{props?.state?.basic?.name}</Text>
         <Text style={styles.header}>Personal Information</Text>
-        {/* <Text style={styles.text}>Name: {props.state.basic.name}</Text> */}
-        <Text style={styles.subheader}>City: {props.state.basic.address}</Text>
-        <Text style={styles.subheader}>Email: {props.state.basic.email}</Text>
-        <Text style={styles.subheader}>Phone: {props.state.basic.phone}</Text>
+        <Text style={styles.subheader}>City: {props?.state?.basic?.address}</Text>
+        <Text style={styles.subheader}>Email: {props?.state?.basic?.email}</Text>
+        <Text style={styles.subheader}>Phone: {props?.state?.basic?.phone}</Text>
       </View>
-
 
       <View style={styles.section}>
         <Text style={styles.header}>About</Text>
-
-
-          <Text style={styles.subheader}>{props.state.basic.intro}</Text>
-
-
-
-      </View>
-
-
-
-      <View style={styles.section}>
-        <Text style={styles.header}>Skills</Text>
-
-
-          <Text style={styles.subheader}>{props.state.basic.skills}</Text>
-
-
-
+        <Text style={styles.subheader}>{props?.state?.basic?.intro}</Text>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.header}>Education</Text>
-        {props.state.qualification.map((v, i) =>
-
-          <Text key={i} style={styles.subheader}>• {""} {v}</Text>
-
-        )}
-        {/* <Text style={styles.text}>University of XYZ</Text> */}
-        {/* <Text style={styles.text}>Graduated: May 2020</Text> */}
+        {props?.state?.qualification?.map((v, i) => (
+          <View key={i}>
+            <Text style={styles.subheader}>{v.title}</Text>
+            <Text style={styles.grayText}>{v.institute}</Text>
+            <Text style={styles.rightText}>{v.year}</Text>
+          </View>
+        ))}
       </View>
-
 
       <View style={styles.section}>
         <Text style={styles.header}>Work Experience</Text>
-
-        {props.state.experience.map((v, i) =>
-          <Text key={i} style={styles.subheader}>• {""} {v}</Text>
-
-        )}
-
-        {/* <Text style={styles.text}>ABC Company</Text>
-        <Text style={styles.text}>June 2020 - Present</Text>
-        <Text style={styles.text}>- Developed and maintained software applications</Text>
-        <Text style={styles.text}>- Fixed bugs and improved application performance</Text> */}
+        {props?.state?.experience?.map((v, i) => (
+          <View key={i}>
+            <Text style={styles.subheader}>{v.title}</Text>
+            <Text style={styles.grayText}>{v.institute}</Text>
+            <Text style={styles.rightText}>{v.year}</Text>
+          </View>
+        ))}
       </View>
-
-
     </Page>
   </Document>
+
 );
+
+
+
+
 
 const App = () => {
 

@@ -17,7 +17,7 @@ import addNotification from "react-push-notification"
 import lottie from "lottie-web"
 import { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import {set_name, set_email, set_intro, set_address, set_phone, set_skills, click_image, add_qualification, add_experience, emptyStore } from "../store/counterslice"
+import { ExpTitle, ExpYear, QualTitle, set_name, set_email, set_intro, set_address, set_phone, set_skills, click_image, add_qualification, add_experience, QualYear } from "../store/counterslice"
 import { api_url } from "../config"
 // const { Configuration, OpenAIApi } = require("openai");
 import OneSignal from 'react-onesignal';
@@ -42,12 +42,11 @@ const App = () => {
 
     const container = useRef(null)
 
-    const customInput = new SpeechSynthesisUtterance()
 
     const state = useSelector(state => state.counter)
 
 
-    
+
 
 
     const saveRecord = () => {
@@ -59,140 +58,316 @@ const App = () => {
     }
 
 
+
+    const askIntro = () => {
+
+        alanBtnInstance.playText(`Can you share your small introduction?`)
+        alanBtnInstance.callProjectApi("intro");
+
+    }
+
+
+
+    console.log(state)
+
+
+    const alanBtnInstance = alanBtn({
+
+        key: "e8fa9817b3cb393fad3b004399eccbd82e956eca572e1d8b807a3e2338fdd0dc/stage",
+
+        onCommand: (commandData) => {
+
+            if (commandData.command === "home") {
+
+                navigate("/web")
+
+            }
+
+            else if (commandData.command === "name") {
+
+                dispatch(set_name(commandData.data))
+                // console.log(commandData.data)
+                navigate("/email")
+                // alanBtnInstance.playText(`Okay Can you confirm your name is ${commandData.data}`)
+                // alanBtnInstance.playText(`You have a good name ${commandData.data}`)
+                // alanBtnInstance.playText(`Can we proceed forward?`)
+                // alanBtnInstance.callProjectApi("forward", {}, (res) => { console.log(res) });
+
+                // askIntro()
+
+
+            }
+
+            else if (commandData.command === "intro") {
+
+                dispatch(set_intro(commandData.data))
+                navigate("/email")
+
+            }
+
+            else if (commandData.command === "email") {
+
+
+                dispatch(set_email(commandData.data))
+                navigate("/phone")
+
+            }
+
+            else if (commandData.command === "phone") {
+
+
+                dispatch(set_phone(commandData.data))
+                navigate("/address")
+
+            }
+
+            else if (commandData.command === "address") {
+
+
+                dispatch(set_address(commandData.data))
+                navigate("/qualification")
+
+            }
+
+            else if (commandData.command === "skills") {
+
+                navigate("/qualification")
+
+                chatGpt(commandData.data, "skills", (res) => { dispatch(set_skills(res)) })
+
+            }
+
+
+            else if (commandData.command === "newQualification") {
+
+
+                dispatch(QualTitle(commandData.data))
+
+            }
+
+            else if (commandData.command === "QualYear") {
+
+
+                dispatch(QualYear(commandData.year))
+
+
+            }
+
+            else if (commandData.command === "QualInstitute") {
+
+
+                // chatGpt(commandData.data, "qualification", (res) => { dispatch(add_qualification(qualification)) })
+                dispatch(add_qualification(commandData.institute))
+
+            }
+
+
+            else if (commandData.command === "qualification") {
+                navigate("/experience")
+
+            }
+
+
+            else if (commandData.command === "newExperience") {
+
+
+                dispatch(ExpTitle(commandData.data))
+
+            }
+
+
+            else if (commandData.command === "ExpYear") {
+
+
+                dispatch(ExpYear(commandData.year))
+
+
+            }
+
+            else if (commandData.command === "ExpInstitute") {
+
+
+                // chatGpt(commandData.data, "qualification", (res) => { dispatch(add_qualification(qualification)) })
+                dispatch(add_experience(commandData.institute))
+
+            }
+
+
+
+            else if (commandData.command === "experience") {
+                // alert("completed")
+                navigate("/basicInfo")
+                saveRecord()
+
+
+            }
+
+
+
+            // else if (commandData.command === "photo") {
+
+            //     dispatch(click_image())
+            //     state.set_click()
+            // }
+
+
+            // else if (commandData.command === "skip") {
+
+            //     navigate("/basicInfo")
+
+            // }
+
+
+
+            else if (commandData.command === "fallback") {
+
+
+                // setCustomInput(commandData.data)
+                // chatGpt(commandData.data)
+                console.log("fallback")
+
+            }
+
+
+
+        }
+    })
+
     useEffect(() => {
 
 
- 
+
         // dispatch(emptyStore())
 
 
         setName(state.basic.name)
 
+        // alanBtnInstance.activate();
 
+        // function updateScreen(time) {
 
-        function updateScreen(time) {
+        // const alanBtnInstance = alanBtn({
 
-            alanBtn({
+        //     key: "e8fa9817b3cb393fad3b004399eccbd82e956eca572e1d8b807a3e2338fdd0dc/stage",
 
-                key: "e8fa9817b3cb393fad3b004399eccbd82e956eca572e1d8b807a3e2338fdd0dc/stage",
+        //     onCommand: (commandData) => {
 
-                onCommand: (commandData) => {
+        //         if (commandData.command === "home") {
 
-                    if (commandData.command === "home") {
+        //             navigate("/web")
 
-                        navigate("/web")
+        //         }
 
-                    }
+        //         else if (commandData.command === "name") {
 
-                    else if (commandData.command === "name") {
+        //             dispatch(set_name(commandData.data))
+        //             navigate("/about")
 
-                        dispatch(set_name(commandData.data))
-                        navigate("/about")
+        //         }
 
-                    }
+        //         else if (commandData.command === "intro") {
 
-                    else if (commandData.command === "intro") {
+        //             console.log(commandData.data)
+        //             dispatch(set_intro(commandData.data))
+        //             navigate("/email")
 
-                        console.log(commandData.data)
-                        dispatch(set_intro(commandData.data))
-                        navigate("/email")
+        //         }
 
-                    }
+        //         else if (commandData.command === "email") {
 
-                    else if (commandData.command === "email") {
 
+        //             dispatch(set_email(commandData.data))
+        //             navigate("/phone")
 
-                        dispatch(set_email(commandData.data))
-                        navigate("/phone")
+        //         }
 
-                    }
+        //         else if (commandData.command === "phone") {
 
-                    else if (commandData.command === "phone") {
 
+        //             dispatch(set_phone(commandData.data))
+        //             navigate("/address")
 
-                        dispatch(set_phone(commandData.data))
-                        navigate("/address")
+        //         }
 
-                    }
+        //         else if (commandData.command === "address") {
 
-                    else if (commandData.command === "address") {
 
+        //             dispatch(set_address(commandData.data))
+        //             navigate("/skills")
 
-                        dispatch(set_address(commandData.data))
-                        navigate("/skills")
+        //         }
 
-                    }
+        //         else if (commandData.command === "skills") {
 
-                    else if (commandData.command === "skills") {
+        //             navigate("/qualification")
 
-                        navigate("/qualification")
+        //             chatGpt(commandData.data, "skills", (res) => { dispatch(set_skills(res)) })
 
-                        chatGpt(commandData.data, "skills", (res) => { dispatch(set_skills(res)) })
+        //         }
 
-                    }
 
+        //         else if (commandData.command === "newQualification") {
 
-                    else if (commandData.command === "newQualification") {
 
+        //             chatGpt(commandData.data, "qualification", (res) => { dispatch(add_qualification(res)) })
 
-                        chatGpt(commandData.data, "qualification", (res) => { dispatch(add_qualification(res)) })
+        //         }
 
-                    }
 
+        //         else if (commandData.command === "qualification") {
+        //             navigate("/experience")
 
-                    else if (commandData.command === "qualification") {
-                        navigate("/experience")
+        //         }
 
-                    }
 
+        //         else if (commandData.command === "newExperience") {
 
-                    else if (commandData.command === "newExperience") {
 
+        //             chatGpt(commandData.data, "experience", (res) => { dispatch(add_experience(res)) })
 
-                        chatGpt(commandData.data, "experience", (res) => { dispatch(add_experience(res)) })
+        //         }
 
-                    }
 
+        //         else if (commandData.command === "experience") {
+        //             // alert("completed")
+        //             navigate("/basicInfo")
+        //             saveRecord()
 
-                    else if (commandData.command === "experience") {
-                        // alert("completed")
-                        navigate("/basicInfo")
-                        saveRecord()
 
+        //         }
 
-                    }
 
 
+        //         // else if (commandData.command === "photo") {
 
-                    // else if (commandData.command === "photo") {
+        //         //     dispatch(click_image())
+        //         //     state.set_click()
+        //         // }
 
-                    //     dispatch(click_image())
-                    //     state.set_click()
-                    // }
 
+        //         // else if (commandData.command === "skip") {
 
-                    // else if (commandData.command === "skip") {
+        //         //     navigate("/basicInfo")
 
-                    //     navigate("/basicInfo")
+        //         // }
 
-                    // }
 
 
+        //         else if (commandData.command === "fallback") {
 
-                    else if (commandData.command === "fallback") {
 
+        //             // setCustomInput(commandData.data)
+        //             // chatGpt(commandData.data)
+        //             console.log("fallback")
 
-                        // setCustomInput(commandData.data)
-                        // chatGpt(commandData.data)
-                        console.log("fallback")
+        //         }
 
-                    }
 
 
+        //     }
+        // })
+        // }
 
-                }
-            })
-        }
 
 
         lottie.loadAnimation({
@@ -204,7 +379,7 @@ const App = () => {
         });
 
 
-        requestAnimationFrame(updateScreen);
+        // requestAnimationFrame(updateScreen);
 
 
 
@@ -213,7 +388,24 @@ const App = () => {
     }, [])
 
 
-    
+
+    const speak = () => {
+
+        // alanBtnInstance.playText("tell name");
+        // alanBtnInstance.sendText("Hello, Alan, can you help me?");
+        // alanBtnInstance.playCommand({command:"askName", screen: "settings"});
+        // alanBtnInstance.playCommand('test');
+
+
+        // alanBtnInstance.activate();
+        // alanBtnInstance.playText("(Hi|Hi there|Hello), I am your resume maker. May I know your name please?");
+
+        // alanBtnInstance.callProjectApi("forward");
+
+
+
+    }
+
 
 
 
@@ -226,17 +418,11 @@ const App = () => {
 
         axios.post(`${api_url}/openAi/getans`, { text: text, key })
             .then(res => cb(res.data.msg))
-            .catch(err => {cb(text) ; toast.error("Network Eror")})
+            .catch(err => { cb(text); toast.error("Network Eror") })
 
     }
 
 
-    const send_noti = () => {
-
-        OneSignal.sendTag("tech", "tag")
-            .then(() => console.log("Tagged"))
-
-    }
 
 
     var regName = /^[a-zA-Z ]+$/;
@@ -269,9 +455,7 @@ const App = () => {
 
             </Form>
 
-            {/* <Button color="success" onClick={() => get_noti()}>Test Notification</Button> */}
-
-
+            {/* <button onClick={() => speak()}>speak</button> */}
 
 
         </div>

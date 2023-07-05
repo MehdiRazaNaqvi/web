@@ -21,6 +21,11 @@ const initialState = {
 
   },
 
+  QualTitle: "",
+  QualYear: "",
+
+  ExpTitle: "",
+  ExpYear: "",
 
   qualification: [],
   experience: [],
@@ -122,14 +127,15 @@ export const counterSlice = createSlice({
     add_qualification: (state, action) => {
 
 
-      state.qualification.push(action.payload)
+      state.qualification.push({title : state.QualTitle , year : state.QualYear , institute : action.payload})
 
     },
 
 
+    
     add_experience: (state, action) => {
 
-      state.experience.push(action.payload)
+      state.experience.push({title : state.ExpTitle , year : state.ExpYear, institute : action.payload})
 
     },
 
@@ -145,31 +151,29 @@ export const counterSlice = createSlice({
 
 
 
+    QualTitle: (state, action) => {
+      state.QualTitle = action.payload
+
+    },
+    QualYear: (state, action) => {
+      state.QualYear = action.payload
+
+    },
+ 
 
 
+    
+    ExpTitle: (state, action) => {
+      state.ExpTitle = action.payload
 
-    emptyStore: (state, action) => {
+    },
+    ExpYear: (state, action) => {
+      state.ExpYear = action.payload
 
-      state.basic = {
+    },
+ 
+    
 
-        name: "",
-        intro: "",
-        email: "",
-        phone: "",
-        address: "",
-        photo: "",
-        skills: '',
-        image: '',
-        image_clicked: false,
-
-
-      }
-
-      state.experience = []
-      state.qualification = []
-  
-
-    }
 
 
 
@@ -181,6 +185,6 @@ export const counterSlice = createSlice({
 
 
 
-export const { emptyStore, set_name, set_email, set_intro, set_address, set_phone, set_skills, set_image, click_image, set_click, set_qualification, add_qualification, set_experience, add_experience } = counterSlice.actions
+export const { ExpTitle, ExpYear, QualTitle, QualYear, set_name, set_email, set_intro, set_address, set_phone, set_skills, set_image, click_image, set_click, set_qualification, add_qualification, set_experience, add_experience } = counterSlice.actions
 
 export default counterSlice.reducer
