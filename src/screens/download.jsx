@@ -58,26 +58,51 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100
   },
+  badge: {
+    backgroundColor: 'darkgreen',
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: 'bold',
+    alignSelf: 'flex-start',
+    marginBottom: 10,
+    position: "absolute",
+    top: "2rem",
+    right: "2rem",
+
+  },
+  specialty: {
+    fontSize: 14,
+    textAlign: 'left',
+    marginBottom: 10
+  },
 });
 
 
 // Create Document Component
 const Resume = (props) => (
-  
+
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
         <Text style={styles.headerName}>{props?.state?.basic?.name}</Text>
+        {props?.state?.experience && props?.state?.experience.length > 0 ?
+          <Text style={styles.badge}>{props?.state?.experience[0]?.title}</Text>
+          :
+          null
+        }
         <Text style={styles.header}>Personal Information</Text>
         <Text style={styles.subheader}>City: {props?.state?.basic?.address}</Text>
         <Text style={styles.subheader}>Email: {props?.state?.basic?.email}</Text>
         <Text style={styles.subheader}>Phone: {props?.state?.basic?.phone}</Text>
       </View>
 
-      <View style={styles.section}>
+      {/* <View style={styles.section}>
         <Text style={styles.header}>About</Text>
         <Text style={styles.subheader}>{props?.state?.basic?.intro}</Text>
-      </View>
+      </View> */}
 
       <View style={styles.section}>
         <Text style={styles.header}>Education</Text>
@@ -100,6 +125,29 @@ const Resume = (props) => (
           </View>
         ))}
       </View>
+
+
+      <View style={styles.section}>
+        <Text style={styles.header}>Research Papers</Text>
+        {props?.state?.research?.map((v, i) => (
+          <View key={i}>
+            <Text style={styles.subheader}>{v.title}</Text>
+            <Text style={styles.grayText}>{v.institute}</Text>
+            <Text style={styles.rightText}>{v.year}</Text>
+          </View>
+        ))}
+      </View>
+
+
+      <View style={styles.section}>
+        <Text style={styles.header}>Area of Speciality</Text>
+        <Text style={styles.specialty}>{props?.state?.speciality}</Text>
+      </View>
+
+
+      <Text style={styles.subheader}>Open to Opportunities: {props?.state?.open ? 'Yes' : 'No'}</Text>
+
+
     </Page>
   </Document>
 

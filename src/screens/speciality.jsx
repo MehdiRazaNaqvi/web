@@ -43,7 +43,7 @@ const App = () => {
             renderer: "svg",
             loop: true,
             autoplay: true,
-            animationData: require("../skins/experience.json")
+            animationData: require("../skins/speciality.json")
         });
 
 
@@ -56,7 +56,7 @@ const App = () => {
 
 
 
-    
+
 
 
 
@@ -68,12 +68,13 @@ const App = () => {
 
             <div className="animation" ref={container}></div>
 
-            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/research"); dispatch(set_experience(name)) }}>
+            <Form className="width form" onSubmit={(e) => { e.preventDefault(); navigate("/basicInfo"); dispatch(set_experience(name)) }}>
                 <FormGroup className="full_width">
                     <Input defaultValue={state.basic.intro} style={{ height: "4rem" }} type="textarea" required onChange={(e) => setName(e.target.value)} valid={name != ""} bsSize="lg" className="full_width" placeholder="Your Introduction"></Input>
                 </FormGroup>
 
                 <div className="btn_div">
+
                     <Button onClick={() => navigate("/qualification")} size="lg" color="dark" className="half_width">Back</Button>
 
                     <Button disabled={name == ""} size="lg" type="submit" color="success" className="half_width">Next</Button>

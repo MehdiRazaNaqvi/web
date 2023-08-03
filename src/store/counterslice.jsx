@@ -21,17 +21,30 @@ const initialState = {
 
   },
 
+  open: "",
+
   QualTitle: "",
   QualYear: "",
 
   ExpTitle: "",
   ExpYear: "",
 
+
+  ResearchTitle: "",
+  ResearchYear: "",
+
+
+
   qualification: [],
   experience: [],
+  research: [],
+
+  speciality: "",
 
 
-  click_func: {}
+  click_func: {},
+
+
 
 
 
@@ -127,15 +140,26 @@ export const counterSlice = createSlice({
     add_qualification: (state, action) => {
 
 
-      state.qualification.push({title : state.QualTitle , year : state.QualYear , institute : action.payload})
+      state.qualification.push({ title: state.QualTitle, year: state.QualYear, institute: action.payload })
 
     },
 
 
-    
+
+    QualTitle: (state, action) => {
+      state.QualTitle = action.payload
+
+    },
+    QualYear: (state, action) => {
+      state.QualYear = action.payload
+
+    },
+
+
+
     add_experience: (state, action) => {
 
-      state.experience.push({title : state.ExpTitle , year : state.ExpYear, institute : action.payload})
+      state.experience.push({ title: state.ExpTitle, year: state.ExpYear, institute: action.payload })
 
     },
 
@@ -151,18 +175,9 @@ export const counterSlice = createSlice({
 
 
 
-    QualTitle: (state, action) => {
-      state.QualTitle = action.payload
-
-    },
-    QualYear: (state, action) => {
-      state.QualYear = action.payload
-
-    },
- 
 
 
-    
+
     ExpTitle: (state, action) => {
       state.ExpTitle = action.payload
 
@@ -171,8 +186,44 @@ export const counterSlice = createSlice({
       state.ExpYear = action.payload
 
     },
- 
-    
+
+
+
+
+
+
+    add_research: (state, action) => {
+
+
+      state.research.push({ title: state.ResearchTitle, year: state.ResearchYear, institute: action.payload })
+
+    },
+
+
+
+    ResearchTitle: (state, action) => {
+      state.ResearchTitle = action.payload
+
+    },
+    ResearchYear: (state, action) => {
+      state.ResearchYear = action.payload
+
+    },
+
+
+
+    add_speciality: (state, action) => {
+
+      state.speciality = action.payload
+
+    },
+
+
+    add_open: (state, action) => {
+
+      state.open = action.payload
+
+    },
 
 
 
@@ -185,6 +236,6 @@ export const counterSlice = createSlice({
 
 
 
-export const { ExpTitle, ExpYear, QualTitle, QualYear, set_name, set_email, set_intro, set_address, set_phone, set_skills, set_image, click_image, set_click, set_qualification, add_qualification, set_experience, add_experience } = counterSlice.actions
+export const { add_open, add_speciality, ExpTitle, ExpYear, ResearchTitle, ResearchYear, add_research, QualTitle, QualYear, set_name, set_email, set_intro, set_address, set_phone, set_skills, set_image, click_image, set_click, set_qualification, add_qualification, set_experience, add_experience } = counterSlice.actions
 
 export default counterSlice.reducer

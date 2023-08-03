@@ -8,15 +8,18 @@ import Photo from "./screens/photo"
 import Address from "./screens/addres"
 import Skills from "./screens/skills"
 import Experience from "./screens/experience"
+import Speciality from "./screens/speciality"
 import Qualification from "./screens/qualification"
 import BasicInfo from "./successScreens/basicInfo"
 import Download from "./screens/download"
+import Research from "./screens/research"
 
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useSelector } from "react-redux"
+import { useEffect } from "react"
 
 
 const App = () => {
@@ -26,6 +29,11 @@ const App = () => {
     const state = useSelector(state => state.counter)
     console.log(state)
 
+
+    useEffect(() => {
+        document.title = "Resume Builder";
+
+    } , [])
     return (
         <div>
             <ToastContainer />
@@ -41,7 +49,9 @@ const App = () => {
                     <Route path="/address" element={<Address />} />
                     <Route path="/skills" element={<Skills />} />
                     <Route path="/qualification" element={<Qualification />} />
+                    <Route path="/research" element={<Research />} />
                     <Route path="/experience" element={<Experience />} />
+                    <Route path="/speciality" element={<Speciality />} />
                     <Route path="/download" element={<Download />} />
                     <Route path="/basicInfo" element={<BasicInfo />} />
 

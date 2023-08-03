@@ -17,7 +17,7 @@ import addNotification from "react-push-notification"
 import lottie from "lottie-web"
 import { useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { ExpTitle, ExpYear, QualTitle, set_name, set_email, set_intro, set_address, set_phone, set_skills, click_image, add_qualification, add_experience, QualYear } from "../store/counterslice"
+import { add_research, ResearchTitle, ResearchYear, add_open, add_speciality, ExpTitle, ExpYear, QualTitle, set_name, set_email, set_intro, set_address, set_phone, set_skills, click_image, add_qualification, add_experience, QualYear } from "../store/counterslice"
 import { api_url } from "../config"
 // const { Configuration, OpenAIApi } = require("openai");
 import OneSignal from 'react-onesignal';
@@ -196,7 +196,72 @@ const App = () => {
 
             else if (commandData.command === "experience") {
                 // alert("completed")
+                navigate("/research")
+
+
+            }
+
+
+
+
+
+            else if (commandData.command === "newResearch") {
+
+
+                dispatch(ResearchTitle(commandData.data))
+
+            }
+
+
+            else if (commandData.command === "ResearchYear") {
+
+
+                dispatch(ResearchYear(commandData.year))
+
+
+            }
+
+            else if (commandData.command === "ResearchInstitute") {
+
+
+                // chatGpt(commandData.data, "qualification", (res) => { dispatch(add_qualification(qualification)) })
+                dispatch(add_research(commandData.institute))
+
+            }
+
+
+
+            else if (commandData.command === "research") {
+                // alert("completed")
+                navigate("/speciality")
+
+
+            }
+
+
+
+
+
+
+            else if (commandData.command === "speciality") {
+                // alert("completed")
+                dispatch(add_speciality(commandData.data))
+
+
+            }
+
+
+
+
+
+
+
+
+            else if (commandData.command === "opportunity") {
+                // alert("completed")
                 navigate("/basicInfo")
+
+                dispatch(add_open(commandData.data))
                 saveRecord()
 
 
